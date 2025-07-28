@@ -1,0 +1,57 @@
+- name: Demo on variables
+  hosts: localhost
+  connection: local
+  vars:
+    URL: vars.google.com
+    tasks:
+      - name: print URL
+        ansible.builtin.debug:
+          msg: URL - {{ URL }}
+
+
+# here in the above msg line ,we have value starting with string url , but if value starting with variable then we need to quote it
+
+#msg: "{{ url }}" ,must and should double quote if the value  starts with variable in ansible
+
+- name: Demo on variables - from task
+  hosts: localhost
+  connection: local
+  tasks:
+      - name: print URL
+        ansible.builtin.debug:
+          msg: URL - {{ URL }}
+          vars:
+            URL: tasks.google.com
+
+
+- name: Demo on variables - Roles variables
+  hosts: localhost
+  connection: local
+  roles:
+    - sample
+
+# precedence means priority
+#1. CLI
+#2. TASKS
+#3. roles . vars
+#4. playbook - Play vars
+#5. Roles - defaults
+
+
+- name: Demo on register variable
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: check package
+      ansible.builtin.dnf:
+        name: zlib
+        state: installed
+        register: out
+
+    - name: print out
+      ansible.builtin.debug:
+        msg: "{{ out }}"
+
+
+
