@@ -1,0 +1,12 @@
+- name: print hello world
+  ansible.built.in.debug:
+    msg: hello world
+
+
+- name: print URL
+  ansible.built.in.debug:
+    msg: URL - {{ URL }}
+
+- name: print EXAMPLE
+  ansible.built.in.debug:
+    msg: URL - {{ EXAMPLE }}

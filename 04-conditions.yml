@@ -1,0 +1,51 @@
+# conditions is to determine weather we can run task or skip it.
+- name: Demo on conditions
+  hosts: localhost
+  connections: local
+  vars:
+    to_install: true
+    # ansible Booleans are true / false or yes / no , anything is fine.
+  tasks:
+    - name: Print OS Redhat
+      ansible.builtin.debug:
+        msg: Redhat
+        when: os == "redhat"
+
+    - name: Print OS Ubuntu
+      ansible.builtin.debug:
+        msg: Ubuntu
+        when: os == "ubuntu"
+
+    - name: Get remainder
+      ansible.builtin.shell: echo $(({{number}}%2))
+      register: reminder
+
+
+    - name: Print Even Numbers
+      ansible.builtin.debug:
+        msg: Number {{ number }} is even
+      when: remainder.stdout == "0"
+
+    - name: Bollen condition
+      ansible.builtin.debug:
+        msg: "{{ to_install }} is true"
+        when: to_install
+
+# variable type
+#1.plain
+# url: example.com
+#2.list
+# -example.com
+# -test.com
+#3.Map
+  #domain_urls:
+  #  example: example.com
+  #  test: test.com
+
+
+
+
+# variable data types
+# 1. string
+# 2. numbers
+# 3. Booleans
