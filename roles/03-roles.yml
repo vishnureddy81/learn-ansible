@@ -1,6 +1,0 @@
--  name: Demo Roles
-   hosts: localhost
-   connection:
-   roles:
-     - sample
-#
